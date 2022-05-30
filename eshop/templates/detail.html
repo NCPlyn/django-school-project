@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Detail sestavy{% endblock %}
+
+{% block css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="row mb-3 bg-warning p-1">
+        <div class="col-sm-12">
+            <h2 class="text-center">Podrobné informace</h2>
+        </div>
+    </div>
+    <div class="row mt-2 mb-3">
+        <div class="col-lg-6 mb-3">
+            <h2 class="text-center display-4 mb-3">{{ sestava_detail.nazev }}</h2>
+            <div class="bg-secondary text-light pl-5 pt-3 mb-3">
+                <div class="row">
+                    <div class="col">
+                        <p style="font-size:200%;font-weight:bold">{{ sestava_detail.cena }},- Kč</p>
+                    </div>
+                    <div class="col">
+                        <a href="" class="btn btn-primary btn-lg">Koupit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">{{ sestava_detail.popis }}</div>
+                <div class="col-md-3">
+                    {% if sestava_detail.nahled %}
+                        <a href="{{ sestava_detail.nahled.url }}">
+                            <img src="{{ sestava_detail.nahled.url }}" class="img-fluid" alt="Foto sestavy">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-2">
+                {% for komponenty in sestava_detail.skladasez.all %}<a href="" class="typy_btn btn btn-secondary btn-sm">{{ komponenty.typ }}: {{ komponenty.vyrobce_nazev }} {{ komponenty.nazev }}</a> {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-6 bg-light p-3">
+            <h3 class="border-bottom pb-3 text-secondary text-center textuppercase">Fotogalerie</h3>
+            <div class="row">
+                <!-- Zobrazení fotogalerie k příslušnému filmu -->
+                {% for image in sestava_detail.attachment_set.all %}
+                    <div class="col-lg-6 col-xl-4">
+                        <a href="{{ image.file.url }}">
+                            <img src="{{ image.file.url }}" class="img-fluid img-thumbnail" alt="{{ image.title }}">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

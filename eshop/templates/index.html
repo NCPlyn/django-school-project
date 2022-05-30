@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row mb-3 bg-warning p-1">
+        <div class="col-sm-12">
+            <h2 class="text-center">Náhodné sestavy</h2>
+        </div>
+    </div>
+    <div class="row">
+        {% for sestava in indx_sestavy %}
+            <div class="col-sm-4">
+                <div class="card">
+                    {% if sestava.nahled %}
+                        <img class="card-img-top" src="{{ sestava.nahled.url }}" alt="{{ sestava.nazev }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h4 class="card-title text-center">{{ sestava.nazev }}</h4>
+                        <p class="card-text">
+                            <strong>Cena:</strong> {{ sestava.cena }},- Kč<br>
+                            <strong>Popis:</strong> {{ sestava.popis }}<br>
+                            <strong>Komponenty:</strong><br>
+                            {% for komponenty in sestava.skladasez.all %}{{ komponenty.nazev }}, {% endfor %}
+                        </p>
+                        <a href="{% url 'sestava_detail' sestava.pk %}" class="btn btn-primary">Podrobnosti</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
