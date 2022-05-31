@@ -42,7 +42,6 @@
         <div class="col-lg-6 bg-light p-3">
             <h3 class="border-bottom pb-3 text-secondary text-center textuppercase">Fotogalerie</h3>
             <div class="row">
-                <!-- Zobrazení fotogalerie k příslušnému filmu -->
                 {% for image in sestava_detail.attachment_set.all %}
                     <div class="col-lg-6 col-xl-4">
                         <a href="{{ image.file.url }}">
